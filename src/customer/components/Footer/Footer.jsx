@@ -127,9 +127,9 @@ import {  BsFacebook, BsTiktok, BsInstagram, BsTwitter } from 'react-icons/bs';
 
 export default function FooterSitemapLinks() {
   return (
-    <Footer className='bg-black text-white text-center justify-normal mt-10 boder- mb-0'>
-      <div className="w-full mb-0">
-        <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4 font-weight: 400" >
+    <Footer className='rounded-none bg-black text-white text-center justify-normal mt-10  mb-0 '>
+      <div className="w-full mb-0  ">
+        <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4 font-weight: 400 " >
           <div className='space-y-2'>
             <Footer.Title title="Company" className='font-bold'/>
             <Footer.LinkGroup col className='space-y-2'>
