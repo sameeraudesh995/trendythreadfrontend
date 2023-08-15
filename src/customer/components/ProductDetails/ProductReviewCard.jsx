@@ -15,12 +15,12 @@ const ProductReviewCard = () => {
             <Grid item xs={9}>
                 <div className='space-y-2'>
                     <div>
-                        <p>Raam</p>
-                        <p>April 5, 2023</p>
+                        <p className='font-semibold text-lg'>Tharaka</p>
+                        <p className='opacity-70'>April 5, 2023</p>
                     </div>
 
                 </div>
-                <Rating value={4.5} name='half-rating'/>
+                <Rating value={4.5} name='half-rating' readOnly precision={.5}/>
                 <p>nice product, i love this shirt</p>
                 
             </Grid> 
