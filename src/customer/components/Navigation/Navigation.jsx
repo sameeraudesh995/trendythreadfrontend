@@ -18,6 +18,7 @@ import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@her
 import { Avatar, Button, Menu } from '@mui/material'
 import { deepPurple } from '@mui/material/colors'
 import { MenuItem } from '@material-tailwind/react'
+import { useNavigate } from 'react-router-dom'
 //import { navigation } from "./navigationData"
 
 
@@ -150,6 +151,7 @@ function classNames(...classes) {
 
 export default function Navigation() {
   const [open, setOpen] = useState(false);
+  const navigate=useNavigate();
 
   const[openAuthModal, setOpenAuthModal] = useState(false);
   const [anchorE1, setAnchorE1] = useState(null);
@@ -169,7 +171,7 @@ export default function Navigation() {
     setOpenAuthModal(false);
   };
   const handleCategoryClick = (category, section, item, close)=>{
-    //navigate(`/${category.id}/${section.id}/${item.id}`);
+    navigate(`/${category.id}/${section.id}/${item.id}`);
     close();
   };
   
