@@ -14,21 +14,16 @@ import CustomerRouters from './Routers/CustomerRouters';
 function App() {
   return (
     <div className="">
-      <div>
-      <Navigation/>
-      </div>
+     
+      
       <Routes>
         <Route path='/*' element={<CustomerRouters/>}>
 
         </Route>
       </Routes>
-      <div>
-      <Footer/>
-      </div>
+     
       
-   <div>
-  
-   </div>
+   
    
     </div>
   );
