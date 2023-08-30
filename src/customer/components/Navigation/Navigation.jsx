@@ -20,6 +20,7 @@ import { deepPurple } from '@mui/material/colors'
 import { MenuItem } from '@material-tailwind/react'
 import { useNavigate } from 'react-router-dom'
 import { navigation } from "./navigationData"
+import AuthModal from '../../Auth/AuthModal'
 
 
 
@@ -350,7 +351,7 @@ export default function Navigation() {
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
         
-                    {true ? (
+                    {false ? (
                       <div>
                         <Avatar className='text-white'
                         onClick={handleUserClick}
@@ -434,6 +435,7 @@ export default function Navigation() {
           </div>
         </nav>
       </header>
+      <AuthModal handleClose={handleClose} open={openAuthModal}/>
     </div>
   );
 }
