@@ -26,8 +26,9 @@ const AuthModal = ({handleClose, open}) => {
   onClose={handleClose}
   aria-labelledby="modal-modal-title"
   aria-describedby="modal-modal-description"
+  size="large"
 >
-  <Box sx={style}>
+  <Box className="rounded-mdmy " sx={style}>
     {location.pathname==="/login"? <LoginForm/> : <RegisterForm/>}
     
    
