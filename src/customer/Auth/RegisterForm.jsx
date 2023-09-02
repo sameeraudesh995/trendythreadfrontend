@@ -1,9 +1,33 @@
-import { Button, Grid, TextField } from '@mui/material'
+
+import { Button, Grid, TextField, Snackbar, Alert } from '@mui/material'
 import React from 'react'
+import { useEffect, useState } from 'react';
+import { getUser, register } from "../../State/Auth/Action";
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 
 const RegisterForm = () => {
     const Navigate = useNavigate();
+    const dispatch=useDispatch();
+    const [openSnackBar,setOpenSnackBar]=useState(false);
+    const jwt=localStorage.getItem("jwt");
+    const { auth } = useSelector((store) => store);
+    const handleClose=()=>setOpenSnackBar(false);
+
+    useEffect(()=>{
+      if(jwt){
+        dispatch(getUser(jwt))
+      }
+    
+    },[jwt, auth.jwt])
+
+  
+    
+    
+      useEffect(() => {
+        if (auth.user || auth.error) setOpenSnackBar(true)
+      }, [auth.user]);
+      
     const handleSubmit=(event)=>{
        event.preventDefault()
 
@@ -16,6 +40,7 @@ const RegisterForm = () => {
         password:data.get("password")
 
        }
+       dispatch(register(userData))
        console.log("userData" ,userData);
 
     }
@@ -80,10 +105,19 @@ const RegisterForm = () => {
       </form>
       <div className='flex justify-center flex-col items-center'>
         <div className='py-3 flex item-center'>
-            <p>if you already have account ? <Button onClick={()=>Navigate("/login")} className='ml-5' size='samll'>Login</Button></p>
+            <p>if you already have account ? <Button onClick={()=>Navigate("/login")} className='ml-5' size='samll'>
+              Login
+              </Button>
+              </p>
             
         </div>
       </div>
+      <Snackbar open={setOpenSnackBar} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          {auth.error?auth.error:auth.user?"Register Success":""}
+        </Alert>
+      </Snackbar>
+
     </div>
   )
 }

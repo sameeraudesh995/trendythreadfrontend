@@ -57,7 +57,7 @@ export default function Navigation() {
   
 
   return (
-    <div className="bg-red-400 pb-10">
+    <div className="bg-blue-600 pb-10">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
@@ -230,7 +230,7 @@ export default function Navigation() {
                   <img
                     className="h-8 w-8 mr-2"
                     src="https://res.cloudinary.com/dvshiriyb/image/upload/v1691773789/samples/my%20new/A_tech_logo_circuit_logo_wnfy7x.svg"
-                    alt="Trend Thread"
+                    alt="Trendy Thread"
                   
                   />
               

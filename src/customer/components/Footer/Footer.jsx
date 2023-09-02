@@ -127,10 +127,10 @@ import {  BsFacebook, BsTiktok, BsInstagram, BsTwitter } from 'react-icons/bs';
 
 export default function FooterSitemapLinks() {
   return (
-    <Footer className='rounded-none bg-black text-white text-center justify-normal mt-10  mb-0 '>
+    <Footer className='rounded-none bg-blue-200 text-white text-center justify-normal mt-10  mb-0 '>
       <div className="w-full mb-0  ">
         <div className="grid w-full grid-cols-2 gap-8 px-6 py-8 md:grid-cols-4 font-weight: 400 " >
-          <div className='space-y-2'>
+          <div className='space-y-2 ' >
             <Footer.Title title="Company" className='font-bold'/>
             <Footer.LinkGroup col className='space-y-2'>
               <Footer.Link href="#">
@@ -197,26 +197,30 @@ export default function FooterSitemapLinks() {
             </Footer.LinkGroup>
           </div>
         </div>
-        <div className=" w-full bg-gray-800 px-4 py-6 sm:flex sm:items-center sm:justify-between">
-          <Footer.Copyright className='font-bold'
+        <div className=" w-full bg-blue-700 px-4 py-6 sm:flex sm:items-center sm:justify-between">
+          <Footer.Copyright className='font-bold text-black'
             by="SameeraUdesh"
             href="#"
             year={2023}
           />
-          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
+          <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center text-black">
             <Footer.Icon
+            className=' text-black'
               href="#"
               icon={BsFacebook}
             />
             <Footer.Icon
+            className=' text-black'
               href="#"
               icon={BsInstagram}
             />
             <Footer.Icon
+            className=' text-black'
               href="#"
               icon={BsTwitter}
             />
             <Footer.Icon
+            className=' text-black'
               href="#"
               icon={BsTiktok}
             />
