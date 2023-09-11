@@ -20,8 +20,9 @@ const style = {
 const AuthModal = ({handleClose, open}) => {
     const location=useLocation();
   return (
-    <div>
+    <div className='md:max-xl:flex'>
         <Modal
+        
   open={open}
   onClose={handleClose}
   aria-labelledby="modal-modal-title"

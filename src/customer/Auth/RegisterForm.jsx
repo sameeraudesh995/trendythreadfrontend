@@ -26,7 +26,7 @@ const RegisterForm = () => {
     
       useEffect(() => {
         if (auth.user || auth.error) setOpenSnackBar(true)
-      }, [auth.user]);
+      }, [auth.error, auth.user]);
       
     const handleSubmit=(event)=>{
        event.preventDefault()

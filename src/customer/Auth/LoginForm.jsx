@@ -1,26 +1,30 @@
 import { Button, Grid, TextField } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { login } from '../../State/Auth/Action'
 
 const LoginForm = () => {
+    const dispatch=useDispatch();
     const Navigate=useNavigate();
+
+
     const handleSubmit=(event)=>{
        event.preventDefault()
 
        const data =new FormData(event.currentTarget);
 
        const userData={
-        firstName:data.get("firstName"),
-        lastName:data.get("lastName"),
         eamil:data.get("email"),
         password:data.get("password")
 
        }
+       dispatch(login(userData))
        console.log("userData" ,userData);
 
     }
   return (
-    <div>
+    <div className='md:max-xl:flex'>
        <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           
