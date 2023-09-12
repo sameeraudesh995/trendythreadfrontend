@@ -1,9 +1,11 @@
 
-import { Grid, TextField, Button, Box, Snackbar, Alert } from "@mui/material";
+import { Grid, TextField, Box, Snackbar, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, register } from "../../State/Auth/Action";
 import { Fragment, useEffect, useState } from "react";
+import { Button } from "@material-tailwind/react";
+
 
 export default function RegisterUserForm({ handleNext }) {
   const navigate = useNavigate();
@@ -90,7 +92,7 @@ useEffect(()=>{
 
           <Grid item xs={12}>
             <Button
-              className="bg-[#9155FD] w-full"
+              className="bg-blue-600 hover:bg-[#C2095A] w-full"
               type="submit"
               variant="contained"
               size="large"
@@ -104,7 +106,7 @@ useEffect(()=>{
 
 <div className="flex justify-center flex-col items-center">
      <div className="py-3 flex items-center ">
-        <p className="m-0 p-0">if you have already account ?</p>
+        <p className="m-0 p-0">if you already have an account ?</p>
         <Button onClick={()=> navigate("/login")} className="ml-5" size="small">
           Login
         </Button>

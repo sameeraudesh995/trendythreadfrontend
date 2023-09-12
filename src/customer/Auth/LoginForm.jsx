@@ -1,10 +1,11 @@
 import * as React from "react";
-import { Grid, TextField, Button, Box, Snackbar, Alert } from "@mui/material";
+import { Grid, TextField,Box, Snackbar, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, login } from '../../State/Auth/Action';
 import { useEffect } from "react";
 import { useState } from "react";
+import { Button } from "@material-tailwind/react";
 
 
 export default function LoginUserForm({ handleNext }) {
@@ -68,7 +69,7 @@ export default function LoginUserForm({ handleNext }) {
 
           <Grid item xs={12}>
             <Button
-              className="bg-[#9155FD] w-full"
+              className="bg-blue-600 hover:bg-[#C2095A] w-full"
               type="submit"
               variant="contained"
               size="large"
