@@ -1,43 +1,49 @@
-import { Box, Modal, Typography } from '@mui/material'
-import React from 'react'
-import RegisterForm from './RegisterForm';
-import { useLocation } from 'react-router-dom';
-import LoginForm from './LoginForm';
-
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import RegisterUserForm from "./RegisterForm";
+import { useEffect, useState } from "react";
+import LoginUserForm from "./LoginForm";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Alert, Snackbar } from "@mui/material";
 
 const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 500,
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    p: 4,
-    // bgcolor: "#ce93d8"
-  };
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
 
-const AuthModal = ({handleClose, open}) => {
-    const location=useLocation();
+export default function AuthModal({ handleClose, open }) {
+  const location = useLocation();
+  const { auth } = useSelector((store) => store);
+  useEffect(() => {
+    if (auth.user) handleClose();
+  }, [auth.user]);
   return (
-    <div className='md:max-xl:flex'>
-        <Modal
-        
-  open={open}
-  onClose={handleClose}
-  aria-labelledby="modal-modal-title"
-  aria-describedby="modal-modal-description"
-  size="large"
->
-  <Box className="rounded-mdmy " sx={style}>
-    {location.pathname==="/login"? <LoginForm/> : <RegisterForm/>}
+    <>
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+      size="large"
+    >
+      <Box className="rounded-md" sx={style}>
+        {location.pathname === "/login" ? (
+          <LoginUserForm />
+        ) : (
+          <RegisterUserForm />
+        )}
+      </Box>
+    </Modal>
     
-   
-
-  </Box>
-</Modal>
-    </div>
-  )
+    </>
+    
+  );
 }
-
-export default AuthModal

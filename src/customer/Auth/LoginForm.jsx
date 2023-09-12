@@ -1,33 +1,49 @@
-import { Button, Grid, TextField } from '@mui/material'
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { login } from '../../State/Auth/Action'
-
-const LoginForm = () => {
-    const dispatch=useDispatch();
-    const Navigate=useNavigate();
+import * as React from "react";
+import { Grid, TextField, Button, Box, Snackbar, Alert } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, login } from '../../State/Auth/Action';
+import { useEffect } from "react";
+import { useState } from "react";
 
 
-    const handleSubmit=(event)=>{
-       event.preventDefault()
-
-       const data =new FormData(event.currentTarget);
-
-       const userData={
-        eamil:data.get("email"),
-        password:data.get("password")
-
-       }
-       dispatch(login(userData))
-       console.log("userData" ,userData);
-
+export default function LoginUserForm({ handleNext }) {
+  const navigate = useNavigate();
+  const dispatch=useDispatch();
+  const jwt=localStorage.getItem("jwt");
+  const [openSnackBar,setOpenSnackBar]=useState(false);
+  const { auth } = useSelector((store) => store);
+  const handleCloseSnakbar=()=>setOpenSnackBar(false);
+  useEffect(()=>{
+    if(jwt){
+      dispatch(getUser(jwt))
     }
+  
+  },[jwt])
+  
+  
+    useEffect(() => {
+      if (auth.user || auth.error) setOpenSnackBar(true)
+    }, [auth.user]);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    
+    const userData={
+      email: data.get("email"),
+      password: data.get("password"),
+     
+    }
+    console.log("login user",userData);
+  
+    dispatch(login(userData));
+
+  };
+
   return (
-    <div className='md:max-xl:flex'>
-       <form onSubmit={handleSubmit}>
+    <React.Fragment className=" shadow-lg ">
+      <form className="w-full" onSubmit={handleSubmit}>
         <Grid container spacing={3}>
-          
           <Grid item xs={12}>
             <TextField
               required
@@ -56,21 +72,26 @@ const LoginForm = () => {
               type="submit"
               variant="contained"
               size="large"
-              sx={{padding:".8rem 0", bgcolor:"#9155FD"}}
+              sx={{padding:".8rem 0"}}
             >
               Login
             </Button>
           </Grid>
         </Grid>
       </form>
-      <div className='flex justify-center flex-col items-center'>
-        <div className='py-3 flex item-center'>
-            <p>if don't have  account ? <Button onClick={()=>Navigate("/register")} className='ml-5' size='samll'>Register</Button></p>
-            
+      <div className="flex justify-center flex-col items-center">
+         <div className="py-3 flex items-center">
+        <p className="m-0 p-0">don't have account ?</p>
+        <Button onClick={()=> navigate("/register")} className="ml-5" size="small">
+          Register
+        </Button>
         </div>
       </div>
-    </div>
-  )
+      <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleCloseSnakbar}>
+        <Alert onClose={handleCloseSnakbar} severity="success" sx={{ width: '100%' }}>
+          {auth.error?auth.error:auth.user?"Register Success":""}
+        </Alert>
+      </Snackbar>
+    </React.Fragment>
+  );
 }
-
-export default LoginForm

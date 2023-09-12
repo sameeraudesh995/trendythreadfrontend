@@ -1,52 +1,50 @@
 
-import { Button, Grid, TextField, Snackbar, Alert } from '@mui/material'
-import React from 'react'
-import { useEffect, useState } from 'react';
+import { Grid, TextField, Button, Box, Snackbar, Alert } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser, register } from "../../State/Auth/Action";
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
+import { Fragment, useEffect, useState } from "react";
 
-const RegisterForm = () => {
-    const Navigate = useNavigate();
-    const dispatch=useDispatch();
-    const [openSnackBar,setOpenSnackBar]=useState(false);
-    const jwt=localStorage.getItem("jwt");
-    const { auth } = useSelector((store) => store);
-    const handleClose=()=>setOpenSnackBar(false);
+export default function RegisterUserForm({ handleNext }) {
+  const navigate = useNavigate();
+  const dispatch=useDispatch();
+  const [openSnackBar,setOpenSnackBar]=useState(false);
+  const { auth } = useSelector((store) => store);
+  const handleClose=()=>setOpenSnackBar(false);
 
-    useEffect(()=>{
-      if(jwt){
-        dispatch(getUser(jwt))
-      }
-    
-    },[jwt, auth.jwt])
+  const jwt=localStorage.getItem("jwt");
 
+useEffect(()=>{
+  if(jwt){
+    dispatch(getUser(jwt))
+  }
+
+},[jwt])
+
+
+  useEffect(() => {
+    if (auth.user || auth.error) setOpenSnackBar(true)
+  }, [auth.user]);
   
-    
-    
-      useEffect(() => {
-        if (auth.user || auth.error) setOpenSnackBar(true)
-      }, [auth.error, auth.user]);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    // eslint-disable-next-line no-console
+    const userData={
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      email: data.get("email"),
+      password: data.get("password"),
       
-    const handleSubmit=(event)=>{
-       event.preventDefault()
-
-       const data =new FormData(event.currentTarget);
-
-       const userData={
-        firstName:data.get("firstName"),
-        lastName:data.get("lastName"),
-        eamil:data.get("email"),
-        password:data.get("password")
-
-       }
-       dispatch(register(userData))
-       console.log("userData" ,userData);
-
     }
+    console.log("user data",userData);
+    dispatch(register(userData))
+  
+  };
+
   return (
-    <div >
-       <form onSubmit={handleSubmit}>
+    <div className="">
+      <form onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <TextField
@@ -96,30 +94,29 @@ const RegisterForm = () => {
               type="submit"
               variant="contained"
               size="large"
-              sx={{padding:".8rem 0", bgcolor:"#9155FD"}}
+              sx={{padding:".8rem 0"}}
             >
               Register
             </Button>
           </Grid>
         </Grid>
       </form>
-      <div className='flex justify-center flex-col items-center'>
-        <div className='py-3 flex item-center'>
-            <p>if you already have account ? <Button onClick={()=>Navigate("/login")} className='ml-5' size='samll'>
-              Login
-              </Button>
-              </p>
-            
-        </div>
+
+<div className="flex justify-center flex-col items-center">
+     <div className="py-3 flex items-center ">
+        <p className="m-0 p-0">if you have already account ?</p>
+        <Button onClick={()=> navigate("/login")} className="ml-5" size="small">
+          Login
+        </Button>
       </div>
-      <Snackbar open={setOpenSnackBar} autoHideDuration={6000} onClose={handleClose}>
+</div>
+
+<Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
           {auth.error?auth.error:auth.user?"Register Success":""}
         </Alert>
       </Snackbar>
-
+     
     </div>
-  )
+  );
 }
-
-export default RegisterForm
